@@ -10,6 +10,9 @@ class Cart(object):
         """ Show cart contents """
         return self.items
 
+    def total(self):
+        """ Calculate cost of cart contents """
+
     def add(self, item, quantity):
         """ Add item to cart """
         print(f"Adding {quantity} {item} to cart")
@@ -21,3 +24,15 @@ class Cart(object):
         else:
             record = {'product_code':item, 'quantity': quantity}
             self.items.append(record)
+
+    def remove(self, item, quantity):
+        """ Remove item from cart """
+        print(f"Removing {quantity} {item} from cart")
+        
+        if any(item_obj['product_code'] == item for item_obj in self.items):
+            for index, entry in enumerate(self.items):
+                if entry['product_code'] == item:
+                    new_quantity = entry['quantity'] - quantity 
+                    entry['quantity'] = new_quantity if new_quantity > 0 else self.items.pop(index)
+        else:
+            print("Item not found")
