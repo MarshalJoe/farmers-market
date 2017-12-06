@@ -1,0 +1,11 @@
+# System
+.DS_STORE
+*.pyc
+env
+__pycache__
+
+# Testing
+.cache
+
+# Credentials
+config.ini
