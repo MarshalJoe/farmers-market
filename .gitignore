@@ -3,9 +3,11 @@
 *.pyc
 env
 __pycache__
+*.egg-info
 
 # Testing
 .cache
+.tox
 
 # Credentials
 config.ini

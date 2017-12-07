@@ -1,5 +1,4 @@
 # System
-import configparser
 
 # Third-party
 import click
@@ -7,18 +6,8 @@ from terminaltables import AsciiTable
 
 # Internal
 from src.Cart import Cart
+from src.util import generate_product_map
 
-def generate_product_map():
-    raw_product_data = configparser.ConfigParser()
-    raw_product_data.read('product.ini')
-    product_codes = raw_product_data.sections()
-    product_data = {}
-    for code in product_codes:
-        product_data[code] = { 
-            'name':raw_product_data[code]['name'],
-            'price': raw_product_data[code]['price']
-        }
-    return product_data
 
 def print_menu(product_data):
     table_data = []
@@ -31,7 +20,7 @@ def print_menu(product_data):
     print("Welcome to Farmer Joe's Farmer's Market!\nWe have the following products for sale today:")
     print(table.table)
 
-product_data = generate_product_map()
+product_data = generate_product_map('product.ini')
 # print_menu(product_data)
 
 # def print_cart():
