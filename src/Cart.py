@@ -2,9 +2,10 @@
 
 class Cart(object):
     """ Simple class for implementing shopping cart functionality """
-    def __init__(self):
+    def __init__(self, product_data):
         self.items = []
         self.discounts = []
+        self.product_data = product_data
 
     def contents(self):
         """ Show cart contents """
@@ -12,6 +13,7 @@ class Cart(object):
 
     def total(self):
         """ Calculate cost of cart contents """
+        print(self.product_data)
 
     def add(self, item, quantity):
         """ Add item to cart """

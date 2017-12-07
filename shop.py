@@ -8,32 +8,42 @@ from terminaltables import AsciiTable
 # Internal
 from src.Cart import Cart
 
-product_map = configparser.ConfigParser()
-product_map.read('config.ini')
-product_codes = product_map.sections()
+def generate_product_map():
+    raw_product_data = configparser.ConfigParser()
+    raw_product_data.read('product.ini')
+    product_codes = raw_product_data.sections()
+    product_data = {}
+    for code in product_codes:
+        product_data[code] = { 
+            'name':raw_product_data[code]['name'],
+            'price': raw_product_data[code]['price']
+        }
+    return product_data
 
-def print_menu():
+def print_menu(product_data):
     table_data = []
     tables_headers = ['Product Code', 'Name', 'Price']
     table_data.append(tables_headers)
-    for code in product_codes:
-        row = [code, product_map[code]['name'], "$" + product_map[code]['price']]
+    for code in product_data.keys():
+        row = [code, product_data[code]['name'], "$" + product_data[code]['price']]
         table_data.append(row)
     table = AsciiTable(table_data)
-    print("Welcome to Farmer Joe's Farmer's Market!")
-    print("We have the following products for sale today:")
+    print("Welcome to Farmer Joe's Farmer's Market!\nWe have the following products for sale today:")
     print(table.table)
 
-def print_cart():
-    print(cart.contents())
+product_data = generate_product_map()
+# print_menu(product_data)
 
-cart = Cart()
+# def print_cart():
+#     print(cart.contents())
+
+cart = Cart(product_data)
 cart.add("AP1", 1)
 cart.add("AP1", 2)
 cart.add("AP1", 5)
+cart.remove("AP1", 7)
 cart.add("MK1", 1)
-print_cart()
-print_menu()
+cart.total()
 
 # print(product_codes)
 # print(products['CH1']['NAME'])
