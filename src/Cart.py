@@ -19,7 +19,8 @@ class Cart(object):
             #     print(True)
             if "CHMK" in self.discounts and item['product_code'] == "MK1" and any(item_obj['product_code'] == "CH1" for item_obj in self.items):
                 item['discount'] = item['price']
-            print(item)
+            if "APPL" in self.discounts and item['product_code'] == "AP1" and item['quantity'] >= 3:
+                item['discount'] = 1.50
 
     def contents(self):
         """ Show cart contents """
@@ -41,7 +42,7 @@ class Cart(object):
             else:
                 final = cost
             total += final
-            print(f"{quantity} X {float(price)} = {cost}\nDiscount {discount}\nNew {final}")
+            print(f"{item['product_code']} {quantity} X {float(price)} = {cost}\nDiscount {discount}\nNew {final}")
 
         return total
 
