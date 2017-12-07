@@ -13,14 +13,16 @@ class Cart(object):
         self.product_data = product_data
 
     def apply_discounts(self):
+    """ Apply discounts to cart contents """
         for item in self.items:
-            # if "BOGO" in self.discounts and any(item_obj['product_code'] == "CF1" for item_obj in self.items):
-            # # discount every other coffee at 100%
-            #     print(True)
-            if "CHMK" in self.discounts and item['product_code'] == "MK1" and any(item_obj['product_code'] == "CH1" for item_obj in self.items):
-                item['discount'] = item['price']
+            if "BOGO" in self.discounts and item['product_code'] == "CF1" and item['quantity'] >= 2:
+                print("BOGO!")
             if "APPL" in self.discounts and item['product_code'] == "AP1" and item['quantity'] >= 3:
                 item['discount'] = 1.50
+            if "CHMK" in self.discounts and item['product_code'] == "MK1" and any(item_obj['product_code'] == "CH1" for item_obj in self.items):
+                item['discount'] = item['price']
+            if "APOM" in self.discounts and item['product_code'] == "OM1" and any(item_obj['product_code'] == "AP1" for item_obj in self.items):
+                print("OATMEAL!")
 
     def contents(self):
         """ Show cart contents """
