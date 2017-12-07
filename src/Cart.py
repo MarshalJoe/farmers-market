@@ -13,7 +13,14 @@ class Cart(object):
 
     def total(self):
         """ Calculate cost of cart contents """
-        print(self.product_data)
+        print("Calculating total cart cost")
+        
+        total = 0
+        for item in self.items:
+            price = self.product_data[item['product_code']]['price']
+            quantity = item['quantity']
+            total += float(price) * quantity
+        return total
 
     def add(self, item, quantity):
         """ Add item to cart """
