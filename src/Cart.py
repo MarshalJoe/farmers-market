@@ -9,30 +9,31 @@ class Cart(object):
     """ Simple class for implementing shopping cart functionality """
     def __init__(self, product_data):
         self.items = []
+        self.product_data = product_data
         self.discounts = {
             "BOGO":None,
             "APPL":None,
             "CHMK":1,
             "APOM":1
         }
-        self.product_data = product_data
 
     def apply_discounts(self):
         """ Apply discounts to cart contents """
         if self.quantify("CF1") >= 2:
             for coffee in self.matching("CF1")[1::2]:
-                coffee.discounts.append(coffee.price)
-                coffee.coupons.append("BOGO")
+                if "BOGO" not in coffee.coupons:
+                    coffee.discounts.append(coffee.price)
+                    coffee.coupons.append("BOGO")
 
         for item in self.items:
-            if "APPL" in self.discounts and item.product_code == "AP1" and self.quantify("AP1") >= 3:
+            if "APPL" in self.discounts and item.product_code == "AP1" and self.quantify("AP1") >= 3 and "APPL" not in item.coupons:
                 item.discounts.append(1.50)
                 item.coupons.append("APPL")
-            if self.discounts["CHMK"] and item.product_code == "MK1" and self.exists("CH1"):
+            if self.discounts["CHMK"] and item.product_code == "MK1" and self.exists("CH1") and "CHMK" not in item.coupons:
                 item.discounts.append(item.price)
                 item.coupons.append("CHMK")
                 self.discounts["CHMK"] = None
-            if self.discounts["APOM"] and item.product_code == "AP1" and self.exists("OM1"):
+            if self.discounts["APOM"] and item.product_code == "AP1" and self.exists("OM1") and "APOM" not in item.coupons:
                 item.discounts.append((item.price / 2))
                 item.coupons.append("APOM")
                 self.discounts["APOM"] = None
