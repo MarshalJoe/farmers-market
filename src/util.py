@@ -24,3 +24,6 @@ def print_menu():
     table = AsciiTable(table_data)
     print("Welcome to Farmer Joe's Farmer's Market!\nWe have the following products for sale today:")
     print(table.table)
+
+def print_cart(cart):
+    print(cart.contents())

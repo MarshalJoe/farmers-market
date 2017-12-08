@@ -7,9 +7,8 @@ from src.Item import Item
 
 class Cart(object):
     """ Simple class for implementing shopping cart functionality """
-    def __init__(self, product_data):
+    def __init__(self):
         self.items = []
-        self.product_data = product_data
 
     def apply_discounts(self):
         """ Apply discounts to cart contents """
