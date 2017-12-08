@@ -79,7 +79,7 @@ class Cart(object):
             item = Item(product_code, float(price))
             self.items.append(item)
 
-    def remove(self, product_code, quantity):
+    def remove(self, product_code, quantity=1):
         """ Remove item from cart """
         print(f"Removing {quantity} {product_code} from cart")
         delete_indices = []
