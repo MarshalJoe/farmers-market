@@ -85,4 +85,4 @@ class Cart(object):
                 removed += 1
         for i in sorted(delete_indices, reverse=True):
             deleted = self.items.pop(i)
-            print(f"Deleted {item.product_code} id: {item.id}")
+            print(f"Deleted {deleted.product_code} id: {deleted.id}")
