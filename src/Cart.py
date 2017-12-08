@@ -13,14 +13,16 @@ class Cart(object):
         self.product_data = product_data
 
     def apply_discounts(self):
-    """ Apply discounts to cart contents """
+        """ Apply discounts to cart contents """
         for item in self.items:
             if "BOGO" in self.discounts and item['product_code'] == "CF1" and item['quantity'] >= 2:
                 print("BOGO!")
             if "APPL" in self.discounts and item['product_code'] == "AP1" and item['quantity'] >= 3:
                 item['discount'] = 1.50
+                item['coupon'] = "APPL"
             if "CHMK" in self.discounts and item['product_code'] == "MK1" and any(item_obj['product_code'] == "CH1" for item_obj in self.items):
                 item['discount'] = item['price']
+                item['coupon'] = "CHMK"
             if "APOM" in self.discounts and item['product_code'] == "OM1" and any(item_obj['product_code'] == "AP1" for item_obj in self.items):
                 print("OATMEAL!")
 
@@ -35,6 +37,7 @@ class Cart(object):
         self.apply_discounts()
         total = 0
         for item in self.items:
+            print(item)
             price = item['price']
             quantity = item['quantity']
             discount = item['discount']
@@ -58,7 +61,7 @@ class Cart(object):
                     entry['quantity'] += quantity
         else:
             price = self.product_data[item]['price']
-            record = {'product_code':item, 'quantity': quantity, 'price': price, 'discount': None}
+            record = {'product_code':item, 'quantity': quantity, 'price': price, 'discount': None, 'coupon': None}
             self.items.append(record)
 
     def remove(self, item, quantity):
