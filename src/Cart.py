@@ -1,4 +1,9 @@
+# System
 
+# Third-party
+
+# Internal
+from src.Item import Item
 
 class Cart(object):
     """ Simple class for implementing shopping cart functionality """
@@ -37,35 +42,26 @@ class Cart(object):
         """ Calculate cost of cart contents """
         print("Calculating total cart cost")
         
-        self.apply_discounts()
+        # self.apply_discounts()
         total = 0
         for item in self.items:
-            print(item)
-            price = item['price']
-            quantity = item['quantity']
-            discount = item['discount']
-            cost = price * quantity
-            if discount:
-                final = cost - (float(discount) * quantity)
+            if item.discount:
+                final = item.price - item.discount
             else:
-                final = cost
+                final = item.price
             total += final
-            print(f"{item['product_code']} {quantity} X {price} = {cost}\nDiscount {discount}\nNew {final}")
-
+            print(f"{item.product_code} ${item.price} = {item.price}\nDiscount {item.discount}\nFinal {final}")
+        print(f"Total:{total}")
         return total
 
-    def add(self, item, quantity):
+    def add(self, product_code, quantity=1):
         """ Add item to cart """
-        print(f"Adding {quantity} {item} to cart")
+        print(f"Adding {quantity} {product_code} to cart")
         
-        if any(item_obj['product_code'] == item for item_obj in self.items):
-            for entry in self.items:
-                if entry['product_code'] == item:
-                    entry['quantity'] += quantity
-        else:
-            price = self.product_data[item]['price']
-            record = {'product_code':item, 'quantity': quantity, 'price': float(price), 'discount': None, 'coupon': None}
-            self.items.append(record)
+        for number in range(quantity):
+            price = self.product_data[product_code]['price']
+            item = Item(product_code, float(price))
+            self.items.append(item)
 
     def remove(self, item, quantity):
         """ Remove item from cart """
