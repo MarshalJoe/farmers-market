@@ -28,7 +28,7 @@ product_data = generate_product_map('product.ini')
 
 cart = Cart(product_data)
 cart.add("CH1", 1)
-cart.add("AP1", 1)
+cart.add("AP1", 3)
 cart.add("CF1", 1)
 cart.add('MK1', 1)
 print(cart.total())

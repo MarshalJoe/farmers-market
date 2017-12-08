@@ -25,9 +25,9 @@ class Cart(object):
             #     # if item['quantity'] % 2 == 0:
             #     #     item['discount'] = item['price'] / 2
             #     item['coupon'] = "BOGO"
-            # if "APPL" in self.discounts and item.product_code == "AP1" and item['quantity'] >= 3:
-            #     item['discount'] = 1.50
-            #     item['coupon'] = "APPL"
+            if "APPL" in self.discounts and item.product_code == "AP1" and self.quantify("AP1") >= 3:
+                item.discount = 1.50
+                item.coupon = "APPL"
             if "CHMK" in self.discounts and item.product_code == "MK1" and self.exists("CH1"):
                 item.discount = item.price
                 item.coupon = "CHMK"
@@ -35,7 +35,7 @@ class Cart(object):
                 print("OATMEAL!")
 
     def contents(self):
-        """ Show cart contents """
+        """ Return cart contents """
         return self.items
 
     def exists(self, product_code):
@@ -43,6 +43,10 @@ class Cart(object):
             return True
         else:
             return False
+
+    def quantify(self, product_code):
+        matches = (item.product_code == product_code for item in self.items)
+        return list(matches).count(True)
 
     def total(self):
         """ Calculate cost of cart contents """
