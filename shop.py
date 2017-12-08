@@ -2,33 +2,12 @@
 
 # Third-party
 import click
-from terminaltables import AsciiTable
 
 # Internal
 from src.Cart import Cart
-from src.util import generate_product_map
+from src.util import generate_product_map, print_menu
 
-
-def print_menu(product_data):
-    table_data = []
-    tables_headers = ['Product Code', 'Name', 'Price']
-    table_data.append(tables_headers)
-    for code in product_data.keys():
-        row = [code, product_data[code]['name'], "$" + product_data[code]['price']]
-        table_data.append(row)
-    table = AsciiTable(table_data)
-    print("Welcome to Farmer Joe's Farmer's Market!\nWe have the following products for sale today:")
-    print(table.table)
-
-product_data = generate_product_map('product.ini')
-print(product_data)
-# print_menu(product_data)
-
-# def print_cart():
-#     print(cart.contents())
-
-# print(product_codes)
-# print(products['CH1']['NAME'])
+print_menu()
 
 # @click.command()
 # @click.option('--count', default=1, help='Number of greetings.')
