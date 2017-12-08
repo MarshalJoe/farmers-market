@@ -21,19 +21,12 @@ def print_menu(product_data):
     print(table.table)
 
 product_data = generate_product_map('product.ini')
+print(product_data)
 # print_menu(product_data)
 
 # def print_cart():
 #     print(cart.contents())
 
-cart = Cart(product_data)
-cart.add("CH1", 1)
-cart.add("AP1", 1)
-cart.add("CF1", 1)
-cart.add('MK1', 1)
-print(cart.total())
-print(cart.total())
-print(cart.total())
 # print(product_codes)
 # print(products['CH1']['NAME'])
 

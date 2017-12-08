@@ -75,8 +75,7 @@ class Cart(object):
         """ Add item to cart """
         print(f"Adding {quantity} {product_code} to cart")
         for number in range(quantity):
-            price = self.product_data[product_code]['price']
-            item = Item(product_code, float(price))
+            item = Item(product_code)
             self.items.append(item)
 
     def remove(self, product_code, quantity=1):
