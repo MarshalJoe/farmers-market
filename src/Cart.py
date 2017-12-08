@@ -32,8 +32,10 @@ class Cart(object):
                 item.discounts.append(item.price)
                 item.coupons.append("CHMK")
                 self.discounts["CHMK"] = None
-            if self.discounts["APOM"] and item.product_code == "OM1" and self.exists("AP1"):
-                print("OATMEAL!")
+            if self.discounts["APOM"] and item.product_code == "AP1" and self.exists("OM1"):
+                item.discounts.append((item.price / 2))
+                item.coupons.append("APOM")
+                self.discounts["APOM"] = None
 
     def contents(self):
         """ Return cart contents """
