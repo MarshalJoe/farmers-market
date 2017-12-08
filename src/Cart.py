@@ -63,14 +63,16 @@ class Cart(object):
             item = Item(product_code, float(price))
             self.items.append(item)
 
-    def remove(self, item, quantity):
+    def remove(self, product_code, quantity):
         """ Remove item from cart """
-        print(f"Removing {quantity} {item} from cart")
+        print(f"Removing {quantity} {product_code} from cart")
         
-        if any(item_obj['product_code'] == item for item_obj in self.items):
-            for index, entry in enumerate(self.items):
-                if entry['product_code'] == item:
-                    new_quantity = entry['quantity'] - quantity 
-                    entry['quantity'] = new_quantity if new_quantity > 0 else self.items.pop(index)
-        else:
-            print("Item not found")
+        delete_indices = []
+        removed = 0
+        for index, item in enumerate(self.items):
+            if item.product_code == product_code and removed < quantity:
+                delete_indices.append(index)
+                removed += 1
+        for i in sorted(delete_indices, reverse=True):
+            deleted = self.items.pop(i)
+            print(f"Deleted {item.product_code} id: {item.id}")
