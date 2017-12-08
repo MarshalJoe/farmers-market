@@ -10,15 +10,16 @@ class Cart(object):
     def __init__(self, product_data):
         self.items = []
         self.product_data = product_data
-        self.discounts = {
+
+    def apply_discounts(self):
+        """ Apply discounts to cart contents """
+        discounts = {
             "BOGO":None,
             "APPL":None,
             "CHMK":1,
             "APOM":1
         }
 
-    def apply_discounts(self):
-        """ Apply discounts to cart contents """
         if self.quantify("CF1") >= 2:
             for coffee in self.matching("CF1")[1::2]:
                 if "BOGO" not in coffee.coupons:
@@ -26,17 +27,17 @@ class Cart(object):
                     coffee.coupons.append("BOGO")
 
         for item in self.items:
-            if "APPL" in self.discounts and item.product_code == "AP1" and self.quantify("AP1") >= 3 and "APPL" not in item.coupons:
+            if "APPL" in discounts and item.product_code == "AP1" and self.quantify("AP1") >= 3 and "APPL" not in item.coupons:
                 item.discounts.append(1.50)
                 item.coupons.append("APPL")
-            if self.discounts["CHMK"] and item.product_code == "MK1" and self.exists("CH1") and "CHMK" not in item.coupons:
+            if discounts["CHMK"] and item.product_code == "MK1" and self.exists("CH1") and "CHMK" not in item.coupons:
                 item.discounts.append(item.price)
                 item.coupons.append("CHMK")
-                self.discounts["CHMK"] = None
-            if self.discounts["APOM"] and item.product_code == "AP1" and self.exists("OM1") and "APOM" not in item.coupons:
+                discounts["CHMK"] = None
+            if discounts["APOM"] and item.product_code == "AP1" and self.exists("OM1") and "APOM" not in item.coupons:
                 item.discounts.append((item.price / 2))
                 item.coupons.append("APOM")
-                self.discounts["APOM"] = None
+                discounts["APOM"] = None
 
     def contents(self):
         """ Return cart contents """
@@ -57,7 +58,7 @@ class Cart(object):
 
     def total(self):
         """ Calculate cost of cart contents """
-        print("Calculating total cart cost")
+        #print("Calculating total cart cost")
         self.apply_discounts()
         total = 0
         for item in self.items:
@@ -66,7 +67,7 @@ class Cart(object):
             else:
                 final = item.price
             total += final
-            print(f"{item.product_code} ${item.price} = {item.price}\nDiscount {sum(item.discounts)}\nFinal {final}")
+            #print(f"{item.product_code} ${item.price} = {item.price}\nDiscount {sum(item.discounts)}\nFinal {final}")
         print(f"Total:{total}")
         return total
 
