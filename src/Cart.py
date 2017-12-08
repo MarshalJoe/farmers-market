@@ -19,12 +19,12 @@ class Cart(object):
 
     def apply_discounts(self):
         """ Apply discounts to cart contents """
+        if self.quantify("CF1") >= 2:
+            for coffee in self.matching("CF1")[1::2]:
+                coffee.discounts.append(coffee.price)
+                coffee.coupons.append("BOGO")
+
         for item in self.items:
-            # if "BOGO" in self.discounts and item['product_code'] == "CF1" and item['quantity'] >= 2:
-            #     # Discount every other Coffee
-            #     # if item['quantity'] % 2 == 0:
-            #     #     item['discount'] = item['price'] / 2
-            #     item['coupon'] = "BOGO"
             if "APPL" in self.discounts and item.product_code == "AP1" and self.quantify("AP1") >= 3:
                 item.discounts.append(1.50)
                 item.coupons.append("APPL")
@@ -42,12 +42,17 @@ class Cart(object):
         return self.items
 
     def exists(self, product_code):
+        """ Check it item exists in cart """
         if any(item.product_code == product_code for item in self.items):
             return True
 
+    def matching(self, product_code):
+        """ Count the number of a given item in the cart """
+        return [item for item in self.items if item.product_code == product_code]
+
     def quantify(self, product_code):
-        matches = (item.product_code == product_code for item in self.items)
-        return list(matches).count(True)
+        """ Count the number of a given item type in the cart """
+        return len(self.matching(product_code))
 
     def total(self):
         """ Calculate cost of cart contents """
