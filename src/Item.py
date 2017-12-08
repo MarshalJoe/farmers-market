@@ -1,3 +1,9 @@
+# System
+import uuid
+
+# Third-party
+
+# Internal
 
 class Item(object):
     """ Simple class for tracking item information """
@@ -6,6 +12,6 @@ class Item(object):
         self.price = price
         self.discount = None
         self.coupon = None
-        self.id = 1
+        self.id = uuid.uuid4()
 
         
