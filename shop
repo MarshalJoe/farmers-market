@@ -1,2 +1,2 @@
-#!/bin/bash
-docker run python-cli "$@"
+#!/bin/bash 
+docker run -v "$PWD":/usr/src/app python-cli "$@"
