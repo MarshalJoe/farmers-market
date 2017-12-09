@@ -2,6 +2,7 @@ import configparser
 from terminaltables import AsciiTable
 
 def generate_product_map(product_file):
+    """ Format product information """
     raw_product_data = configparser.ConfigParser()
     raw_product_data.read(product_file)
     product_codes = raw_product_data.sections()
@@ -14,6 +15,7 @@ def generate_product_map(product_file):
     return product_data
 
 def print_menu():
+    """ Print Menu information """
     product_data = generate_product_map('product.ini')
     table_data = []
     tables_headers = ['Product Code', 'Name', 'Price']
