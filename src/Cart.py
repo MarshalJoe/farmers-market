@@ -47,13 +47,13 @@ class Cart(object):
     def print(self):
         """ Print cart contents """
         table_data = []
-        tables_headers = ['Item', '        ', 'Price']
+        tables_headers = ['Item', '            ', 'Price']
         border_row = ["----", "", "-----"]
         table_data.append(tables_headers)
         table_data.append(border_row)
         msg = ""
         for item in self.contents():
-            row = [item.product_code, "", f"{item.price}"]
+            row = [item.product_code, "", "{0:.2f}".format(item.price)]
             table_data.append(row)
             for index, deals in enumerate(item.coupons):
                 discount_row = ["", deals, f"-{item.discounts[index]}"]
@@ -65,6 +65,8 @@ class Cart(object):
         table.outer_border = False
         table.inner_heading_row_border = False
         table.inner_footing_row_border = True
+        table.justify_columns[1] = 'center' # Justify coupons center
+        table.justify_columns[2] = 'right' # Justify prices right
         msg += table.table
         return msg
 
@@ -92,7 +94,7 @@ class Cart(object):
                 final = item.price
             total += final
             #print(f"{item.product_code} ${item.price} = {item.price}\nDiscount {sum(item.discounts)}\nFinal {final}")
-        print(f"Total:{total}")
+        # print(f"Total:{total}")
         return total
 
     def add(self, product_code, quantity=1):

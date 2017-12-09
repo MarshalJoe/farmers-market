@@ -21,7 +21,10 @@ def print_menu():
     for code in product_data.keys():
         row = [code, product_data[code]['name'], "$" + product_data[code]['price']]
         table_data.append(row)
-    table = AsciiTable(table_data=table_data, title="Farmer Joe's Farmer's Market")
+    table = AsciiTable(table_data=table_data)
+    table.justify_columns[0] = 'center' # Justify codes center
+    table.justify_columns[1] = 'left' # Justify coupons center
+    table.justify_columns[2] = 'right'  # Justify prices right
     msg = "Welcome to Farmer Joe's Farmer's Market!\nWe have the following products for sale today:\n"
     msg += table.table
     return msg

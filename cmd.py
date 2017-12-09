@@ -14,6 +14,7 @@ def run():
     cart.add("AP1")
     cart.add("CF1")
     cart.add('MK1')
+    click.echo(print_menu())
     click.echo(cart.print())
 
 if __name__ == '__main__':
