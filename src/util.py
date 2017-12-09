@@ -21,10 +21,7 @@ def print_menu():
     for code in product_data.keys():
         row = [code, product_data[code]['name'], "$" + product_data[code]['price']]
         table_data.append(row)
-    table = AsciiTable(table_data)
+    table = AsciiTable(table_data=table_data, title="Farmer Joe's Farmer's Market")
     msg = "Welcome to Farmer Joe's Farmer's Market!\nWe have the following products for sale today:\n"
     msg += table.table
     return msg
-
-def print_cart(cart):
-    print(cart.contents())

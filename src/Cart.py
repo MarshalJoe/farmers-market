@@ -1,6 +1,7 @@
 # System
 
 # Third-party
+from terminaltables import AsciiTable
 
 # Internal
 from src.Item import Item
@@ -40,7 +41,32 @@ class Cart(object):
 
     def contents(self):
         """ Return cart contents """
+        self.apply_discounts()
         return self.items
+
+    def print(self):
+        """ Print cart contents """
+        table_data = []
+        tables_headers = ['Item', '        ', 'Price']
+        border_row = ["----", "", "-----"]
+        table_data.append(tables_headers)
+        table_data.append(border_row)
+        msg = ""
+        for item in self.contents():
+            row = [item.product_code, "", f"{item.price}"]
+            table_data.append(row)
+            for index, deals in enumerate(item.coupons):
+                discount_row = ["", deals, f"-{item.discounts[index]}"]
+                table_data.append(discount_row)
+        total_row = ["", "", f"{self.total()}"]
+        table_data.append(total_row)
+        table = AsciiTable(table_data=table_data)
+        table.inner_column_border = False
+        table.outer_border = False
+        table.inner_heading_row_border = False
+        table.inner_footing_row_border = True
+        msg += table.table
+        return msg
 
     def exists(self, product_code):
         """ Check it item exists in cart """
@@ -58,9 +84,8 @@ class Cart(object):
     def total(self):
         """ Calculate cost of cart contents """
         #print("Calculating total cart cost")
-        self.apply_discounts()
         total = 0
-        for item in self.items:
+        for item in self.contents():
             if len(item.discounts) > 0:
                 final = item.price - sum(item.discounts)
             else:
