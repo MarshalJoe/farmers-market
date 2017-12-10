@@ -1,4 +1,5 @@
 # System
+from pathlib import Path
 
 # Third-party
 import click
@@ -6,6 +7,13 @@ import click
 # Internal
 from src.Cart import Cart
 from src.utils import print_menu, save_cart, load_cart, get_code
+
+pickle_file = Path("cart.p")
+if not pickle_file.is_file():
+    print("Pickle 'cart.p' file does not exist! Creating one")
+    file = open("cart.p","w+")
+    cart = Cart()
+    save_cart(cart)
 
 @click.group()
 def cart():
