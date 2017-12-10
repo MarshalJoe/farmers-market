@@ -1,4 +1,6 @@
 import configparser
+import pickle
+
 from terminaltables import AsciiTable
 
 def generate_product_map(product_file):
@@ -30,3 +32,9 @@ def print_menu():
     msg = "Welcome to Farmer Joe's Farmer's Market!\nWe have the following products for sale today:\n"
     msg += table.table
     return msg
+
+def save_cart(cart):
+    pickle.dump(cart, open("cart.p", "wb" ))
+
+def load_cart():
+    return pickle.load(open("cart.p", "rb" ))
