@@ -7,6 +7,7 @@ __pycache__
 cart.p
 *.egg-info
 env
+farmers-market.log
 
 # Testing
 .cache
