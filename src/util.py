@@ -1,7 +1,11 @@
+# System
 import configparser
 import pickle
 
+# Third-party
 from terminaltables import AsciiTable
+
+# Internal
 
 def generate_product_map(product_file):
     """ Format product information """
@@ -33,8 +37,13 @@ def print_menu():
     msg += table.table
     return msg
 
+def get_code(item):
+    return "CODE"
+
 def save_cart(cart):
+    """ Save cart to Pickle """
     pickle.dump(cart, open("cart.p", "wb" ))
 
 def load_cart():
+    """ Load cart from Pickle """
     return pickle.load(open("cart.p", "rb" ))
