@@ -20,6 +20,7 @@ docker build -t farmers-market .
 
  - create cart.p pickle file if one doesn't exist
  - convert between product codes and names
+ - make cart total two digits
  - add logging
  - make testing classes
  - increase test coverage
