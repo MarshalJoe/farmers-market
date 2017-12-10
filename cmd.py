@@ -16,7 +16,7 @@ def cart():
 @click.option('--quantity', default=1, help='Number of items to add to your cart (defaults to 1)')
 @click.argument('item')
 def add(quantity, item):
-    """ Add item to cart """
+    """ Add item(s) to cart """
     item = get_code(item)
     click.echo(f"{quantity} {item}")
 
@@ -24,7 +24,7 @@ def add(quantity, item):
 @click.option('--quantity', default=1, help='Number of items to remove from your cart (defaults to 1)')
 @click.argument('item')
 def remove(quantity, item):
-    """ Remove item from cart """
+    """ Remove item(s) from cart """
     click.echo(f"{quantity} {item}")
 
 @cart.command()
