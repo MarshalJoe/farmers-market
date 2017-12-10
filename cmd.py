@@ -30,12 +30,13 @@ def remove(quantity, item):
 @cart.command()
 def print():
     """ Print cart contents """
-    click.echo(f"Printing cart")
+    cart = load_cart()
+    click.echo(cart.print())
 
 @cart.command()
 def clear():
     """ Empty cart """
-    click.echo("Emptying cart")
+    click.echo("Emptied Cart")
 
 @cart.command()
 def deals():
@@ -44,6 +45,11 @@ def deals():
     click.echo("APPL -- If you buy 3 or more bags of Apples, the price drops to $4.50.")
     click.echo("CHMK -- Purchase a box of Chai and get milk free. (Limit 1)")
     click.echo("APOM -- Purchase a bag of Oatmeal and get 50% off a bag of Apples")
+
+@cart.command()
+def products():
+    """ Show products and prices """
+    click.echo(print_menu())
 
 # @click.command()
 # def run():
