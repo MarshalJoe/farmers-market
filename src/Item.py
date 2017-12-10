@@ -4,7 +4,7 @@ import uuid
 # Third-party
 
 # Internal
-from src.util import generate_product_map
+from src.utils import generate_product_map
 
 class Item(object):
     """ Simple class for tracking item information """

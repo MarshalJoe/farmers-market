@@ -5,7 +5,7 @@ import click
 
 # Internal
 from src.Cart import Cart
-from src.util import print_menu, save_cart, load_cart, get_code
+from src.utils import print_menu, save_cart, load_cart, get_code
 
 @click.group()
 def cart():

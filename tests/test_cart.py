@@ -4,7 +4,7 @@
 
 # Internal
 from src.Cart import Cart
-from src.util import generate_product_map
+from src.utils import generate_product_map
 
 product_data = generate_product_map('product.ini')
 
