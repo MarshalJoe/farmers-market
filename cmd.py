@@ -17,25 +17,35 @@ def cart():
 @click.argument('item')
 def add(quantity, item):
     """ Add item(s) to cart """
-    item = get_code(item)
-    click.echo(f"{quantity} {item}")
+    cart = load_cart()
+    cart.add(item, quantity)
+    save_cart(cart)
+    click.echo(f"Added {quantity} {item} to your cart.")
 
 @cart.command()
 @click.option('--quantity', default=1, help='Number of items to remove from your cart (defaults to 1)')
 @click.argument('item')
 def remove(quantity, item):
     """ Remove item(s) from cart """
-    click.echo(f"{quantity} {item}")
+    cart = load_cart()
+    cart.remove(item, quantity)
+    save_cart(cart)
+    click.echo(f"Removed {quantity} {item} to your cart.")
 
 @cart.command()
 def print():
     """ Print cart contents """
     cart = load_cart()
-    click.echo(cart.print())
+    if len(cart.items) != 0:
+        click.echo(cart.print())
+    else:
+        click.echo("Your cart is empty! Try adding an item.")
 
 @cart.command()
-def clear():
+def empty():
     """ Empty cart """
+    cart = Cart()
+    save_cart(cart)
     click.echo("Emptied Cart")
 
 @cart.command()
@@ -47,22 +57,9 @@ def deals():
     click.echo("APOM -- Purchase a bag of Oatmeal and get 50% off a bag of Apples")
 
 @cart.command()
-def products():
+def shop():
     """ Show products and prices """
     click.echo(print_menu())
-
-# @click.command()
-# def run():
-#     # cart = Cart()
-#     # cart.add("CH1")
-#     # cart.add("AP1")
-#     # cart.add("CF1")
-#     # cart.add('MK1')
-#     # pickle.dump( cart, open("cart.p", "wb" ))
-#     cart = load_cart()
-#     cart.add('MK1')
-#     save_cart(cart)
-#     click.echo(cart.print())
 
 if __name__ == '__main__':
     cart()
