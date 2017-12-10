@@ -19,6 +19,7 @@ docker build -t farmers-market .
 ## TODOS
 
  - create cart.p pickle file if one doesn't exist
+ - convert between product codes and names
  - add logging
  - make testing classes
  - increase test coverage
