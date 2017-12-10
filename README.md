@@ -15,3 +15,10 @@ docker build -t farmers-market .
 ```
 
 ## Run
+
+## TODOS
+
+ - create cart.p pickle file if one doesn't exist
+ - add logging
+ - make testing classes
+ - increase test coverage
