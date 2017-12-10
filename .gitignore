@@ -1,9 +1,12 @@
 # System
 .DS_STORE
 *.pyc
-env
 __pycache__
+
+# Application
+cart.p
 *.egg-info
+env
 
 # Testing
 .cache
