@@ -2,6 +2,12 @@
 
 ## Setup
 
+Set up your config
+
+```
+cp config-example.ini config.ini
+```
+
 Build your Docker image
 
 ```
