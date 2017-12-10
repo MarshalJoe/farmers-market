@@ -11,7 +11,7 @@ cp config-example.ini config.ini
 Build your Docker image
 
 ```
-docker build -t python-cli .
+docker build -t farmers-market .
 ```
 
 ## Run
