@@ -105,6 +105,16 @@ Options:
 ./cart shop
 ```
 
+## Testing
+
+Ensure `tox` is installed and run the basic command:
+
+```
+tox
+```
+
+*Note: There's more about my decision to use tox and keep it seperate from the Dockerfile in the Design Notes section under Testing*
+
 ## Design Notes
 
 ### Tracking Cart State
@@ -119,12 +129,14 @@ For such a simple implementation, it's a lightweight, thin solution that doesn't
 
 Rather than parse `args` directly, I wanted to use a library that would give me a lot of the basics of a CLI for free. With [click](http://click.pocoo.org/5/) I receive:
     1. Generated `--help` messages for both the CLI as a whole and individual commands, parameters, and options
-    2. CLI-specific `Exceptions` like `BadParameter` that support error and help messages that fit within the CLI message structure.
+    2. CLI-specific errors like `BadParameter` that fit within the CLI message structure.
     3. A simple, declarative syntax that means I can have a concise `cmd.py` entrypoint to the larger app, where all the commands are laid out and easily reasoned through.
 
 ### Testing
 
-I chose `tox` and `nose` to support the testing environment. `tox` is a great testing runner that plays well with CI / CD pipelines (like Circle CI) and could be used to expand the current app's testing regimen to include any number of Python versions. `nose` is a library I like to use for general Python testing because it supports the usual test discovery protocols and expands the functionality of Python's built-in testing library. I try to err on the side of using the standard library -- or in this case, something that tracks very close to it -- because of the stability of the resulting code.
+I chose `tox` and `nose` to support the testing environment. `tox` is a great testing runner that [plays well with CI / CD pipelines (like Circle CI)](https://circleci.com/docs/1.0/language-python/) and could be used to expand the current app's testing regimen to include any number of Python versions. `nose` is a library I like to use for general Python testing because it supports the usual test discovery protocols and expands the functionality of Python's built-in testing library. I try to err on the side of using the standard library -- or in this case, something that tracks very close to it -- because of the improved stability of the resulting code.
+
+**Note**: I separated the requirements into `requirements.txt` and `requirements-dev.txt` so as to avoid installing development dependencies in the production Docker image. I felt it was acceptable to have `tox` as a standalone, separate, un-containerized dependency as a consequence of this decision because it would be available in whatever Circle CI instance was running the integration tests.
 
 ### Credentials / Config
 
@@ -134,7 +146,9 @@ As someone who writes a lot of PHP and Python, I'm drawn to using `.ini` files f
 
  - DONE create cart.p pickle file if one doesn't exist
  - DONE convert between product codes and names
- - make cart total two digits
+ - DONE make cart total two digits
  - add logging
  - make testing classes
  - increase test coverage
+ - add input validation
+ - DONE dockerize testing
