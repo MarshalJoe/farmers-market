@@ -141,14 +141,3 @@ I chose `tox` and `nose` to support the testing environment. `tox` is a great te
 ### Credentials / Config
 
 As someone who writes a lot of PHP and Python, I'm drawn to using `.ini` files for their cross compatibilty. They provide a means of structuring credentials for multiple services in a single file that can be used in a polygot environment.
-
-## TODOS
-
- - DONE create cart.p pickle file if one doesn't exist
- - DONE convert between product codes and names
- - DONE make cart total two digits
- - add logging
- - DONE make testing classes
- - increase test coverage
- - add input validation
- - DONE dockerize testing
