@@ -119,18 +119,18 @@ tox
 
 ### Tracking Cart State
 
-I wanted a solution for tracking the contents of your shopping cart so that the program.. 
-    1. wouldn't need to be one long interactive session
-    2. could keep track of contents even if it exited because of an error
+I wanted a solution for tracking the contents of your shopping cart so that the program..  
+    1. wouldn't need to be one long interactive session.  
+    2. could keep track of contents even if it exited because of an error.  
 For that I decided to use [pickle](https://docs.python.org/3/library/pickle.html), a standard-library object serializer that writes objects to a binary flat file.  
 For such a simple implementation, it's a lightweight, thin solution that doesn't require the management of a proper DB, but for a multi-cart version of this program, I would strongly recommend moving to a more robust solution.
 
 ### Building the CLI
 
-Rather than parse `args` directly, I wanted to use a library that would give me a lot of the basics of a CLI for free. With [click](http://click.pocoo.org/5/) I receive:
-    1. Generated `--help` messages for both the CLI as a whole and individual commands, parameters, and options
-    2. CLI-specific errors like `BadParameter` that fit within the CLI message structure.
-    3. A simple, declarative syntax that means I can have a concise `cmd.py` entrypoint to the larger app, where all the commands are laid out and easily reasoned through.
+Rather than parse `args` directly, I wanted to use a library that would give me a lot of the basics of a CLI for free. With [click](http://click.pocoo.org/5/) I receive:  
+    1. Generated `--help` messages for both the CLI as a whole and individual commands, parameters, and options.  
+    2. CLI-specific errors like `BadParameter` that fit within the CLI message structure.  
+    3. A simple, declarative syntax that means I can have a concise `cmd.py` entrypoint to the larger app, where all the commands are laid out and easily reasoned through.  
 
 ### Testing
 
@@ -141,3 +141,19 @@ I chose `tox` and `nose` to support the testing environment. `tox` is a great te
 ### Credentials / Config
 
 As someone who writes a lot of PHP and Python, I'm drawn to using `.ini` files for their cross compatibilty. They provide a means of structuring credentials for multiple services in a single file that can be used in a polygot environment.
+
+## Conclusion
+
+```
+.___________. __    __       ___      .__   __.  __  ___    ____    ____  ______    __    __   __  
+|           ||  |  |  |     /   \     |  \ |  | |  |/  /    \   \  /   / /  __  \  |  |  |  | |  | 
+`---|  |----`|  |__|  |    /  ^  \    |   \|  | |  '  /      \   \/   / |  |  |  | |  |  |  | |  | 
+    |  |     |   __   |   /  /_\  \   |  . `  | |    <        \_    _/  |  |  |  | |  |  |  | |  | 
+    |  |     |  |  |  |  /  _____  \  |  |\   | |  .  \         |  |    |  `--'  | |  `--'  | |__| 
+    |__|     |__|  |__| /__/     \__\ |__| \__| |__|\__\        |__|     \______/   \______/  (__) 
+
+```
+
+Thank you for your time. Please let me know if I can provide you with any more information or clarify any of the design decisions I've made in the construction of this app. I'm excited about the possibility of moving forward with Object Rocket and hope to chat with you soon.
+
+--Joe
