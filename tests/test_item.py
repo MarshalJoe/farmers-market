@@ -8,14 +8,12 @@ from src.Item import Item
 class TestItem(object):
     """ Class for testing Item """
     def __init__(self):
-        pass
+        self.item = Item("CF1")
         
     def test_creation(self):
-        item = Item("CF1")
-        assert item.name == "Coffee"
+        assert self.item.name == "Coffee"
 
     def test_coupons(self):
         coupon = "CHMK"
-        item = Item("CF1")
-        item.coupons.append(coupon)
-        assert coupon in item.coupons
+        self.item.coupons.append(coupon)
+        assert coupon in self.item.coupons
