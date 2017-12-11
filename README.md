@@ -136,7 +136,7 @@ Rather than parse `args` directly, I wanted to use a library that would give me 
 
 I chose `tox` and `nose` to support the testing environment. `tox` is a great testing runner that [plays well with CI / CD pipelines (like Circle CI)](https://circleci.com/docs/1.0/language-python/) and could be used to expand the current app's testing regimen to include any number of Python versions. `nose` is a library I like to use for general Python testing because it supports the usual test discovery protocols and expands the functionality of Python's built-in testing library. I try to err on the side of using the standard library -- or in this case, something that tracks very close to it -- because of the improved stability of the resulting code.
 
-**Note**: I separated the requirements into `requirements.txt` and `requirements-dev.txt` so as to avoid installing development dependencies in the production Docker image. I felt it was acceptable to have `tox` as a standalone, separate, un-containerized dependency as a consequence of this decision because it would be available in whatever Circle CI instance was running the integration tests.
+**Note**: I separated the requirements into `requirements.txt` and `requirements-dev.txt` so as to avoid installing development dependencies in the production Docker image. I felt it was acceptable to have `tox` as a standalone, separate, un-containerized dependency as a consequence of this decision because it would be available in whatever Circle CI instance was running the integration tests, as well as most developer machines.
 
 ### Credentials / Config
 
@@ -148,7 +148,7 @@ As someone who writes a lot of PHP and Python, I'm drawn to using `.ini` files f
  - DONE convert between product codes and names
  - DONE make cart total two digits
  - add logging
- - make testing classes
+ - DONE make testing classes
  - increase test coverage
  - add input validation
  - DONE dockerize testing
