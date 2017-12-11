@@ -126,7 +126,7 @@ Rather than parse `args` directly, I wanted to use a library that would give me 
 
 I chose `tox` and `nose` to support the testing environment. `tox` is a great testing runner that plays well with CI / CD pipelines (like Circle CI) and could be used to expand the current app's testing regimen to include any number of Python versions. `nose` is a library I like to use for general Python testing because it supports the usual test discovery protocols and expands the functionality of Python's built-in testing library. I try to err on the side of using the standard library -- or in this case, something that tracks very close to it -- because of the stability of the resulting code.
 
-## Credentials / Config
+### Credentials / Config
 
 As someone who writes a lot of PHP and Python, I'm drawn to using `.ini` files for their cross compatibilty. They provide a means of structuring credentials for multiple services in a single file that can be used in a polygot environment.
 
