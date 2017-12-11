@@ -31,14 +31,21 @@ def print_menu():
         table_data.append(row)
     table = AsciiTable(table_data=table_data)
     table.justify_columns[0] = 'center' # Justify codes center
-    table.justify_columns[1] = 'left' # Justify coupons center
+    table.justify_columns[1] = 'left' # Justify names center
     table.justify_columns[2] = 'right'  # Justify prices right
     msg = "Welcome to Farmer Joe's Farmer's Market!\nWe have the following products for sale today:\n"
     msg += table.table
     return msg
 
 def get_code(item):
-    return "CODE"
+    """ Get code from input item code or item name """
+    product_data = generate_product_map('product.ini')
+    if item in product_data.keys():
+        return item
+    else:
+        for code in product_data.keys():
+            if product_data[code]['name'] == item:
+                return code
 
 def save_cart(cart):
     """ Save cart to Pickle """

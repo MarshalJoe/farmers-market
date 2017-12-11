@@ -17,7 +17,7 @@ if not pickle_file.is_file():
 
 config_file = Path("config.ini")
 if not config_file.is_file():
-    click.echo("No config file detected! Please add a 'config.ini' ")
+    raise Exception("No config file detected! Please add a 'config.ini' ")
 
 @click.group()
 def cart():
@@ -29,8 +29,9 @@ def cart():
 @click.argument('item')
 def add(quantity, item):
     """ Add item(s) to cart """
+    product_code = get_code(item)
     cart = load_cart()
-    cart.add(item, quantity)
+    cart.add(product_code, quantity)
     save_cart(cart)
     click.echo(f"Added {quantity} {item} to your cart.")
 
@@ -39,8 +40,9 @@ def add(quantity, item):
 @click.argument('item')
 def remove(quantity, item):
     """ Remove item(s) from cart """
+    product_code = get_code(item)
     cart = load_cart()
-    cart.remove(item, quantity)
+    cart.remove(product_code, quantity)
     save_cart(cart)
     click.echo(f"Removed {quantity} {item} to your cart.")
 
