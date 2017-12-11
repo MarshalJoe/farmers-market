@@ -59,7 +59,7 @@ def remove(quantity, item):
 @cart.command()
 def print():
     """ Print cart contents """
-    logging.debug(f"Printing cart contents.")
+    logging.debug("Printing cart contents.")
     cart = load_cart()
     if len(cart.items) != 0:
         click.echo(cart.print())

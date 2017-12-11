@@ -85,7 +85,6 @@ class Cart(object):
 
     def total(self):
         """ Calculate cost of cart contents """
-        #print("Calculating total cart cost")
         total = 0
         for item in self.contents():
             if len(item.discounts) > 0:
@@ -93,20 +92,16 @@ class Cart(object):
             else:
                 final = item.price
             total += final
-            #print(f"{item.product_code} ${item.price} = {item.price}\nDiscount {sum(item.discounts)}\nFinal {final}")
-        # print(f"Total:{total}")
         return total
 
     def add(self, product_code, quantity=1):
         """ Add item to cart """
-        print(f"Adding {quantity} {product_code} to cart")
         for number in range(quantity):
             item = Item(product_code)
             self.items.append(item)
 
     def remove(self, product_code, quantity=1):
         """ Remove item from cart """
-        print(f"Removing {quantity} {product_code} from cart")
         delete_indices = []
         removed = 0
         for index, item in enumerate(self.items):
@@ -115,4 +110,3 @@ class Cart(object):
                 removed += 1
         for i in sorted(delete_indices, reverse=True):
             deleted = self.items.pop(i)
-            print(f"Deleted {deleted.product_code} id: {deleted.id}")
