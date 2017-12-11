@@ -15,6 +15,10 @@ if not pickle_file.is_file():
     cart = Cart()
     save_cart(cart)
 
+config_file = Path("config.ini")
+if not config_file.is_file():
+    click.echo("No config file detected! Please add a 'config.ini' ")
+
 @click.group()
 def cart():
     """ Farmer's Market Help Page """
