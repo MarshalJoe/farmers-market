@@ -22,21 +22,21 @@ class Cart(object):
 
         if self.quantify("CF1") >= 2:
             for coffee in self.matching("CF1")[1::2]:
-                if "BOGO" not in coffee.coupons:
-                    coffee.discounts.append(coffee.price)
-                    coffee.coupons.append("BOGO")
+                if coffee.coupon != "BOGO":
+                    coffee.discount = coffee.price
+                    coffee.coupon = "BOGO"
 
         for item in self.items:
-            if "APPL" in discounts and item.product_code == "AP1" and self.quantify("AP1") >= 3 and "APPL" not in item.coupons:
-                item.discounts.append(1.50)
-                item.coupons.append("APPL")
-            if discounts["CHMK"] and item.product_code == "MK1" and self.exists("CH1") and "CHMK" not in item.coupons:
-                item.discounts.append(item.price)
-                item.coupons.append("CHMK")
+            if "APPL" in discounts and item.product_code == "AP1" and self.quantify("AP1") >= 3 and item.coupon != "APPL":
+                item.discount = 1.50
+                item.coupon = "APPL"
+            if discounts["CHMK"] and item.product_code == "MK1" and self.exists("CH1") and item.coupon != "CHMK":
+                item.discount = item.price
+                item.coupon = "CHMK"
                 discounts["CHMK"] = None
-            if discounts["APOM"] and item.product_code == "AP1" and self.exists("OM1") and "APOM" not in item.coupons:
-                item.discounts.append((item.price / 2))
-                item.coupons.append("APOM")
+            if discounts["APOM"] and item.product_code == "AP1" and self.exists("OM1") and item.coupon != "APOM":
+                item.discount = (item.price / 2)
+                item.coupon = "APOM"
                 discounts["APOM"] = None
 
     def contents(self):
@@ -55,8 +55,8 @@ class Cart(object):
         for item in self.contents():
             row = [item.product_code, "", "{0:.2f}".format(item.price)]
             table_data.append(row)
-            for index, deals in enumerate(item.coupons):
-                discount_row = ["", deals, f"-{item.discounts[index]}"]
+            if item.discount:
+                discount_row = ["", item.coupon, f"-{item.discount}"]
                 table_data.append(discount_row)
         total_row = ["", "", "{0:.2f}".format(self.total())]
         table_data.append(total_row)
@@ -87,8 +87,8 @@ class Cart(object):
         """ Calculate cost of cart contents """
         total = 0
         for item in self.contents():
-            if len(item.discounts) > 0:
-                final = item.price - sum(item.discounts)
+            if item.discount:
+                final = item.price - item.discount
             else:
                 final = item.price
             total += final

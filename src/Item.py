@@ -13,7 +13,7 @@ class Item(object):
         self.product_data = generate_product_map("product.ini")
         self.price = float(self.product_data[product_code]['price'])
         self.name = self.product_data[product_code]['name']
-        self.discounts = []
-        self.coupons = []
+        self.discount = None
+        self.coupon = None
         self.id = uuid.uuid4()
         

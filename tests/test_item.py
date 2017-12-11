@@ -11,9 +11,12 @@ class TestItem(object):
         self.item = Item("CF1")
         
     def test_creation(self):
-        assert self.item.name == "Coffee"
+        assert type(self.item.name).__name__ == "str"
 
     def test_coupons(self):
         coupon = "CHMK"
-        self.item.coupons.append(coupon)
-        assert coupon in self.item.coupons
+        self.item.coupon = coupon
+        assert coupon == self.item.coupon
+
+    def test_price(self):
+        assert type(self.item.price).__name__ == "float"
