@@ -1,4 +1,6 @@
 # System
+import configparser
+import logging
 from pathlib import Path
 
 # Third-party
@@ -20,6 +22,11 @@ config_file = Path("config.ini")
 if not config_file.is_file():
     raise Exception("No config file detected! Please add a 'config.ini' ")
 
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+logging.basicConfig(filename=config['LOGGER']['PATH'], format='%(asctime)s %(message)s', level=logging.DEBUG)
+
 @click.group()
 def cart():
     """ Farmer's Market Help Page """
@@ -30,6 +37,7 @@ def cart():
 @click.argument('item')
 def add(quantity, item):
     """ Add item(s) to cart """
+    logging.debug(f"Adding {quantity} {item} to your cart.")
     product_code = get_code(validate_item(item))
     cart = load_cart()
     cart.add(product_code, validate_quantity(quantity))
@@ -41,6 +49,7 @@ def add(quantity, item):
 @click.argument('item')
 def remove(quantity, item):
     """ Remove item(s) from cart """
+    logging.debug(f"Removing {quantity} {item} to your cart.")
     product_code = get_code(validate_item(item))
     cart = load_cart()
     cart.remove(product_code, validate_quantity(quantity))
@@ -50,6 +59,7 @@ def remove(quantity, item):
 @cart.command()
 def print():
     """ Print cart contents """
+    logging.debug(f"Printing cart contents.")
     cart = load_cart()
     if len(cart.items) != 0:
         click.echo(cart.print())
@@ -59,6 +69,7 @@ def print():
 @cart.command()
 def empty():
     """ Empty cart """
+    logging.debug("Emptying cart.")
     cart = Cart()
     save_cart(cart)
     click.echo("Emptied Cart")
@@ -66,6 +77,7 @@ def empty():
 @cart.command()
 def deals():
     """ Show deals """
+    logging.debug("Showing deals")
     click.echo("BOGO -- Buy-One-Get-One-Free Special on Coffee. (Unlimited)")
     click.echo("APPL -- If you buy 3 or more bags of Apples, the price drops to $4.50.")
     click.echo("CHMK -- Purchase a box of Chai and get milk free. (Limit 1)")
@@ -74,6 +86,7 @@ def deals():
 @cart.command()
 def shop():
     """ Show products and prices """
+    logging.debug("Showing menu / products")
     click.echo(print_menu())
 
 if __name__ == '__main__':
