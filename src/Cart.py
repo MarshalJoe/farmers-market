@@ -58,7 +58,7 @@ class Cart(object):
             for index, deals in enumerate(item.coupons):
                 discount_row = ["", deals, f"-{item.discounts[index]}"]
                 table_data.append(discount_row)
-        total_row = ["", "", f"{self.total()}"]
+        total_row = ["", "", "{0:.2f}".format(self.total())]
         table_data.append(total_row)
         table = AsciiTable(table_data=table_data)
         table.inner_column_border = False
