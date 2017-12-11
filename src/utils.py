@@ -14,7 +14,7 @@ def generate_product_map(product_file):
     product_codes = raw_product_data.sections()
     product_data = {}
     for code in product_codes:
-        product_data[code] = { 
+        product_data[code] = {
             'name':raw_product_data[code]['name'],
             'price': raw_product_data[code]['price']
         }
@@ -26,7 +26,7 @@ def print_menu():
     table_data = []
     tables_headers = ['Product Code', 'Name', 'Price']
     table_data.append(tables_headers)
-    for code in product_data.keys():
+    for code in product_data:
         row = [code, product_data[code]['name'], "$" + product_data[code]['price']]
         table_data.append(row)
     table = AsciiTable(table_data=table_data)
@@ -40,17 +40,17 @@ def print_menu():
 def get_code(item):
     """ Get code from input item code or item name """
     product_data = generate_product_map('product.ini')
-    if item in product_data.keys():
+    if item in product_data:
         return item
     else:
-        for code in product_data.keys():
+        for code in product_data:
             if product_data[code]['name'] == item:
                 return code
 
 def save_cart(cart):
     """ Save cart to Pickle """
-    pickle.dump(cart, open("cart.p", "wb" ))
+    pickle.dump(cart, open("cart.p", "wb"))
 
 def load_cart():
     """ Load cart from Pickle """
-    return pickle.load(open("cart.p", "rb" ))
+    return pickle.load(open("cart.p", "rb"))
