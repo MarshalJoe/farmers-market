@@ -11,13 +11,6 @@ from src.Cart import Cart
 from src.utils import print_menu, save_cart, load_cart, get_code
 from src.validations import validate_quantity, validate_item
 
-pickle_file = Path("cart.p")
-if not pickle_file.is_file():
-    print("Pickle 'cart.p' file does not exist! Creating one")
-    file = open("cart.p","w+")
-    cart = Cart()
-    save_cart(cart)
-
 config_file = Path("config.ini")
 if not config_file.is_file():
     raise Exception("No config file detected! Please add a 'config.ini' ")
@@ -26,6 +19,13 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 
 logging.basicConfig(filename=config['LOGGER']['PATH'], format='%(asctime)s %(message)s', level=logging.DEBUG)
+
+pickle_file = Path("cart.p")
+if not pickle_file.is_file():
+    logging.debug("Pickle 'cart.p' file does not exist! Creating one")
+    file = open("cart.p","w+")
+    cart = Cart()
+    save_cart(cart)
 
 @click.group()
 def cart():
