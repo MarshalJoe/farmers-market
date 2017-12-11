@@ -7,6 +7,7 @@ import click
 # Internal
 from src.Cart import Cart
 from src.utils import print_menu, save_cart, load_cart, get_code
+from src.validations import validate_quantity, validate_item
 
 pickle_file = Path("cart.p")
 if not pickle_file.is_file():
@@ -29,9 +30,9 @@ def cart():
 @click.argument('item')
 def add(quantity, item):
     """ Add item(s) to cart """
-    product_code = get_code(item)
+    product_code = get_code(validate_item(item))
     cart = load_cart()
-    cart.add(product_code, quantity)
+    cart.add(product_code, validate_quantity(quantity))
     save_cart(cart)
     click.echo(f"Added {quantity} {item} to your cart.")
 
@@ -40,9 +41,9 @@ def add(quantity, item):
 @click.argument('item')
 def remove(quantity, item):
     """ Remove item(s) from cart """
-    product_code = get_code(item)
+    product_code = get_code(validate_item(item))
     cart = load_cart()
-    cart.remove(product_code, quantity)
+    cart.remove(product_code, validate_quantity(quantity))
     save_cart(cart)
     click.echo(f"Removed {quantity} {item} to your cart.")
 
